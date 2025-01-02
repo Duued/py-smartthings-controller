@@ -94,16 +94,7 @@ async def fetch_devices():
 device_list: Dict[str, Device] = {}
 
 
-def find_device(text: str) -> Optional[Device]:
-    """
-    Find a device by ID or label
-
-    Parameters:
-    text (str): The device ID or label to search for
-
-    Returns:
-    Optional[Device]: The device if found, otherwise None
-    """
+def find_device(text):
     device = device_list.get(text)
     if device:
         return device
@@ -111,8 +102,13 @@ def find_device(text: str) -> Optional[Device]:
 
 
 def find_device_by_label(label: str) -> Optional[Device]:
-    for device in device_list.values():
-        if device.label.lower() == label.lower():
+    # Split the label into parts
+    label_parts = label.lower().split()
+    
+    for key, device in device_list.items():
+        device_label = device.label.lower()
+        # Check if all parts of the label are in the device label
+        if all(part in device_label for part in label_parts):
             return device
     return None
 
