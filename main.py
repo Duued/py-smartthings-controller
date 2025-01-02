@@ -13,6 +13,8 @@ async def main():
     if DISCOVERY_MODE == "auto":
         await devices.fetch_devices()
     elif DISCOVERY_MODE == "manual":
+        # todo: implement manual device setup
+        # or just hope that everyone uses auto and expect people to setup manual themselves
         pass
     else:
         print(
